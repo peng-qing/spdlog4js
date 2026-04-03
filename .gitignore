@@ -1,0 +1,15 @@
+# 忽略 node_modules 目录
+node_modules
+
+# . 忽略 .vscode 目录
+.vscode
+
+# 忽略 compile_commands.json 文件
+compile_commands.json
+
+# 缓存
+.cache
+
+# 构建
+build
+

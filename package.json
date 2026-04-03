@@ -1,0 +1,22 @@
+{
+  "name": "spdlog4js",
+  "version": "1.0.0",
+  "description": "封装 C++ 的 `spdlog` 提供给 `nodejs` 服务使用。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bindings": "^1.5.0",
+    "node-addon-api": "^8.7.0"
+  },
+  "devDependencies": {
+    "@types/bindings": "^1.5.5",
+    "node-gyp": "^12.2.0",
+    "typescript": "^6.0.2"
+  }
+}
