@@ -1,6 +1,7 @@
 "use strict";
 
-const nativeBinding = require("bindings")("spdlog4js");
+const nativeBinding = require('node-gyp-build')(__dirname);
+
 const LogConfig = nativeBinding.LogConfig;
 const LogLevel = nativeBinding.LogLevel;
 const Sink = nativeBinding.Sink;

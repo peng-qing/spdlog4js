@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: npm install --ignore-scripts
       - name: Prebuild
-        run: npx prebuildify --napi --strip
+        run: npm run prebuild
       - name: Verify prebuild
         run: node -e "const m = require('node-gyp-build')(__dirname); console.log('Loaded:', Object.keys(m));"
       - uses: actions/upload-artifact@v4
