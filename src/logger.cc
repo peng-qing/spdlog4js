@@ -392,7 +392,7 @@ Logger::Logger(const Napi::CallbackInfo &info) : Napi::ObjectWrap<Logger>(info)
         static bool s_async_init;
         if (!s_async_init)
         {
-            spdlog::init_thread_pool(8192, 1);
+            spdlog::init_thread_pool(8192, 2);
             s_async_init = true;
         }
         m_logger = std::make_shared<spdlog::async_logger>(
