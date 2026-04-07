@@ -1,0 +1,57 @@
+name: CI
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-22.04
+            name: linux-x64
+          - os: windows-latest
+            name: windows-x64
+          - os: macos-latest
+            name: macos-arm64
+    runs-on: ${{ matrix.os }}
+    name: Build - ${{ matrix.name }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm install --ignore-scripts
+      - name: Prebuild
+        run: npx prebuildify --napi --strip
+      - name: Verify prebuild
+        run: node -e "const m = require('node-gyp-build')(__dirname); console.log('Loaded:', Object.keys(m));"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: prebuilds-${{ matrix.name }}
+          path: prebuilds/
+          retention-days: 30
+  merge:
+    needs: build
+    runs-on: ubuntu-latest
+    name: Merge prebuilds
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: prebuilds/
+          pattern: prebuilds-*
+          merge-multiple: true
+      - name: Show prebuilds
+        run: |
+          echo "=== Files ==="
+          find prebuilds/ -type f
+          echo ""
+          echo "=== Sizes ==="
+          du -sh prebuilds/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: prebuilds-all
+          path: prebuilds/
+          retention-days: 30
