@@ -45,3 +45,46 @@ node-gyp build
 # --verbose 会显示编译参数细节 方便定位问题
 node-gyp clean && node-gyp configure && node-gyp build --verbose
 ```
+## 简单的性能测试
+
+输出 10000000 条日志
+```shell
+node examples/bench_example.js
+
+[spdlog sync file]
+  Total: 3566.81ms
+  Ops/s: 2,803,628
+  Avg:   0.36us/op
+
+[spdlog async file]
+  Total: 9099.54ms
+  Ops/s: 1,098,957
+  Avg:   0.91us/op
+
+[Node.js fs.writeSync]
+  Total: 9825.25ms
+  Ops/s: 1,017,786
+  Avg:   0.98us/op
+
+[Node.js fs.appendFileSync]
+  Total: 19588.25ms
+  Ops/s: 510,510
+  Avg:   1.96us/op
+
+[pino sync file]
+  Total: 15749.20ms
+  Ops/s: 634,953
+  Avg:   1.57us/op
+
+[pino async file]
+  Total: 20076.09ms
+  Ops/s: 498,105
+  Avg:   2.01us/op
+
+[pino async (minimal)]
+  Total: 25510.36ms
+  Ops/s: 391,998
+  Avg:   2.55us/op
+
+Done. Check ./logs/ for output files.
+```
