@@ -23,6 +23,10 @@ public:
 
 public:
     /**
+     * @brief 构造函数引用，用于在 Node.js 中创建日志记录器对象引用
+     */
+    static Napi::FunctionReference constructor;
+    /**
      * @brief 构造函数
      * @param info Node.js 回调信息对象
      */

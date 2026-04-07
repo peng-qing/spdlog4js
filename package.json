@@ -3,12 +3,18 @@
   "version": "1.0.0",
   "description": "封装 C++ 的 `spdlog` 提供给 `nodejs` 服务使用。",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "rebuild": "node-gyp rebuild",
+    "build": "node-gyp clean && node-gyp configure && node-gyp build --verbose"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "spdlog",
+    "nodejs",
+    "napi"
+  ],
+  "author": "pengqq",
+  "license": "MIT",
   "type": "commonjs",
   "dependencies": {
     "bindings": "^1.5.0",

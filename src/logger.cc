@@ -53,7 +53,7 @@ LogConfig::LogConfig(const CallbackInfo &info)
       m_console(true),
       m_max_file_size(1024 * 1024 * 500),
       m_max_file_backups(50),
-      m_flush_interval(30),
+      m_flush_interval(3),
       m_async_mode(false)
 {
     if (info.Length() <= 0)
@@ -307,14 +307,14 @@ Napi::Object Logger::Initialize(Napi::Env env, Napi::Object exports)
                     StaticAccessor<&Logger::StaticGetLevel, &Logger::StaticSetLevel>("level"),
                     StaticAccessor<nullptr, &Logger::StaticSetPattern>("pattern"),
                     // 成员函数部分
-                    InstanceMethod<&Logger::Critical>("__critical"),
-                    InstanceMethod<&Logger::Error>("__error"),
-                    InstanceMethod<&Logger::Warn>("__warn"),
-                    InstanceMethod<&Logger::Info>("__info"),
-                    InstanceMethod<&Logger::Debug>("__debug"),
-                    InstanceMethod<&Logger::Trace>("__trace"),
-                    InstanceMethod<&Logger::FlushOn>("__flushOn"),
-                    InstanceMethod<&Logger::Flush>("__flush"),
+                    InstanceMethod<&Logger::Critical>("critical"),
+                    InstanceMethod<&Logger::Error>("error"),
+                    InstanceMethod<&Logger::Warn>("warn"),
+                    InstanceMethod<&Logger::Info>("info"),
+                    InstanceMethod<&Logger::Debug>("debug"),
+                    InstanceMethod<&Logger::Trace>("trace"),
+                    InstanceMethod<&Logger::FlushOn>("flushOn"),
+                    InstanceMethod<&Logger::Flush>("flush"),
                     // 成员访问器 getter/setter
                     InstanceAccessor<&Logger::GetLevel, &Logger::SetLevel>("level"),
                     InstanceAccessor<nullptr, &Logger::SetPattern>("pattern"),
@@ -448,7 +448,11 @@ Logger::~Logger()
 Napi::Value Logger::StaticCritical(const Napi::CallbackInfo &info)
 {
     Napi::Env env = info.Env();
-    if (info.Length() <= 0 || !info[0].IsString())
+    if (info.Length() <= 0)
+    {
+        return env.Undefined();
+    }
+    if (!info[0].IsString())
     {
 
         NAPI_THROW(
@@ -463,7 +467,11 @@ Napi::Value Logger::StaticCritical(const Napi::CallbackInfo &info)
 Napi::Value Logger::StaticError(const Napi::CallbackInfo &info)
 {
     Napi::Env env = info.Env();
-    if (info.Length() <= 0 || !info[0].IsString())
+    if (info.Length() <= 0)
+    {
+        return env.Undefined();
+    }
+    if (!info[0].IsString())
     {
 
         NAPI_THROW(
@@ -477,7 +485,11 @@ Napi::Value Logger::StaticError(const Napi::CallbackInfo &info)
 Napi::Value Logger::StaticWarn(const Napi::CallbackInfo &info)
 {
     Napi::Env env = info.Env();
-    if (info.Length() <= 0 || !info[0].IsString())
+    if (info.Length() <= 0)
+    {
+        return env.Undefined();
+    }
+    if (!info[0].IsString())
     {
 
         NAPI_THROW(
@@ -491,7 +503,11 @@ Napi::Value Logger::StaticWarn(const Napi::CallbackInfo &info)
 Napi::Value Logger::StaticInfo(const Napi::CallbackInfo &info)
 {
     Napi::Env env = info.Env();
-    if (info.Length() <= 0 || !info[0].IsString())
+    if (info.Length() <= 0)
+    {
+        return env.Undefined();
+    }
+    if (!info[0].IsString())
     {
 
         NAPI_THROW(
@@ -505,7 +521,11 @@ Napi::Value Logger::StaticInfo(const Napi::CallbackInfo &info)
 Napi::Value Logger::StaticDebug(const Napi::CallbackInfo &info)
 {
     Napi::Env env = info.Env();
-    if (info.Length() <= 0 || !info[0].IsString())
+    if (info.Length() <= 0)
+    {
+        return env.Undefined();
+    }
+    if (!info[0].IsString())
     {
 
         NAPI_THROW(
@@ -519,9 +539,12 @@ Napi::Value Logger::StaticDebug(const Napi::CallbackInfo &info)
 Napi::Value Logger::StaticTrace(const Napi::CallbackInfo &info)
 {
     Napi::Env env = info.Env();
-    if (info.Length() <= 0 || !info[0].IsString())
+    if (info.Length() <= 0)
     {
-
+        return env.Undefined();
+    }
+    if (!info[0].IsString())
+    {
         NAPI_THROW(
                 Napi::TypeError::New(env, "string expected"),
                 env.Undefined());
@@ -693,7 +716,11 @@ Napi::Value Logger::Critical(const Napi::CallbackInfo &info)
                 Napi::TypeError::New(env, "logger not initialized"),
                 env.Undefined());
     }
-    if (info.Length() <= 0 || !info[0].IsString())
+    if (info.Length() <= 0)
+    {
+        return env.Undefined();
+    }
+    if (!info[0].IsString())
     {
         NAPI_THROW(
                 Napi::TypeError::New(env, "string expected"),
@@ -712,7 +739,11 @@ Napi::Value Logger::Error(const Napi::CallbackInfo &info)
                 Napi::TypeError::New(env, "logger not initialized"),
                 env.Undefined());
     }
-    if (info.Length() <= 0 || !info[0].IsString())
+    if (info.Length() <= 0)
+    {
+        return env.Undefined();
+    }
+    if (!info[0].IsString())
     {
         NAPI_THROW(
                 Napi::TypeError::New(env, "string expected"),
@@ -731,7 +762,11 @@ Napi::Value Logger::Warn(const Napi::CallbackInfo &info)
                 Napi::TypeError::New(env, "logger not initialized"),
                 env.Undefined());
     }
-    if (info.Length() <= 0 || !info[0].IsString())
+    if (info.Length() <= 0)
+    {
+        return env.Undefined();
+    }
+    if (!info[0].IsString())
     {
         NAPI_THROW(
                 Napi::TypeError::New(env, "string expected"),
@@ -750,7 +785,11 @@ Napi::Value Logger::Info(const Napi::CallbackInfo &info)
                 Napi::TypeError::New(env, "logger not initialized"),
                 env.Undefined());
     }
-    if (info.Length() <= 0 || !info[0].IsString())
+    if (info.Length() <= 0)
+    {
+        return env.Undefined();
+    }
+    if (!info[0].IsString())
     {
         NAPI_THROW(
                 Napi::TypeError::New(env, "string expected"),
@@ -769,7 +808,11 @@ Napi::Value Logger::Debug(const Napi::CallbackInfo &info)
                 Napi::TypeError::New(env, "logger not initialized"),
                 env.Undefined());
     }
-    if (info.Length() <= 0 || !info[0].IsString())
+    if (info.Length() <= 0)
+    {
+        return env.Undefined();
+    }
+    if (!info[0].IsString())
     {
         NAPI_THROW(
                 Napi::TypeError::New(env, "string expected"),
@@ -788,7 +831,11 @@ Napi::Value Logger::Trace(const Napi::CallbackInfo &info)
                 Napi::TypeError::New(env, "logger not initialized"),
                 env.Undefined());
     }
-    if (info.Length() <= 0 || !info[0].IsString())
+    if (info.Length() <= 0)
+    {
+        return env.Undefined();
+    }
+    if (!info[0].IsString())
     {
         NAPI_THROW(
                 Napi::TypeError::New(env, "string expected"),

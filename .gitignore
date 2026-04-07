@@ -13,3 +13,5 @@ compile_commands.json
 # 构建
 build
 
+**/*.log
+logs

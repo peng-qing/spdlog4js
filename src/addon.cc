@@ -14,6 +14,8 @@
  */
 Napi::Object Initialize(Napi::Env env, Napi::Object exports)
 {
+    // 日志配置文件导出
+    LogConfig::Initialize(env, exports);
     // 注册日志级别相关信息导出
     LogLevel::Initialize(env, exports);
     // 注册日志输出目标相关信息导出
