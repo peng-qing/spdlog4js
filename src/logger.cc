@@ -14,6 +14,7 @@
 #include "spdlog/sinks/daily_file_sink.h"
 #include "spdlog/sinks/hourly_file_sink.h"
 #include "spdlog/sinks/rotating_file_sink.h"
+#include "spdlog/sinks/stdout_color_sinks.h"
 #include "spdlog/spdlog.h"
 
 using namespace Napi;
@@ -382,7 +383,7 @@ Logger::Logger(const Napi::CallbackInfo &info) : Napi::ObjectWrap<Logger>(info)
     if (sink_type == LoggerSink::Sink::CONSOLE || log_conf->m_console || sinks.size() <= 0)
     {
         // 没有sink 默认输出到控制台
-        auto console_sink_ptr = std::make_shared<spdlog::sinks::ansicolor_stdout_sink_mt>();
+        auto console_sink_ptr = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
         sinks.push_back(console_sink_ptr);
     }
 
