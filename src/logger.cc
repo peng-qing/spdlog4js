@@ -90,7 +90,10 @@ Napi::Value LogConfig::GetName(const Napi::CallbackInfo &info)
 {
     return Napi::String::New(info.Env(), m_name);
 }
-
+Napi::Value LogConfig::GetSink(const Napi::CallbackInfo &info)
+{
+    return Napi::String::New(info.Env(), m_sink);
+}
 Napi::Value LogConfig::GetConsole(const Napi::CallbackInfo &info)
 {
     return Napi::Boolean::New(info.Env(), m_console);
@@ -132,6 +135,10 @@ void LogConfig::SetName(const Napi::CallbackInfo &info, const Napi::Value &name)
 {
     m_name = name.As<Napi::String>().Utf8Value();
 }
+void LogConfig::SetSink(const Napi::CallbackInfo &info, const Napi::Value &sink)
+{
+    m_sink = sink.As<Napi::String>().Utf8Value();
+}
 void LogConfig::SetConsole(const Napi::CallbackInfo &info, const Napi::Value &console)
 {
     m_console = console.As<Napi::Boolean>().Value();
@@ -163,6 +170,10 @@ void LogConfig::SetMaxFileSize(const Napi::CallbackInfo &info, const Napi::Value
 void LogConfig::SetFlushInterval(const Napi::CallbackInfo &info, const Napi::Value &flushInterval)
 {
     m_flush_interval = flushInterval.As<Napi::Number>().Uint32Value();
+}
+void LogConfig::SetAsyncMode(const Napi::CallbackInfo &info, const Napi::Value &asyncMode)
+{
+    m_async_mode = asyncMode.As<Napi::Boolean>().Value();
 }
 
 Napi::Object LogLevel::Initialize(Napi::Env env, Napi::Object exports)
