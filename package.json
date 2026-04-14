@@ -7,7 +7,8 @@
   "scripts": {
     "rebuild": "node-gyp rebuild",
     "build": "node-gyp clean && node-gyp configure && node-gyp build --verbose",
-    "prebuild": "prebuildify --napi --strip"
+    "prebuild": "prebuildify --napi --strip",
+    "install": "node-gyp-build"
   },
   "keywords": [
     "spdlog",
@@ -25,5 +26,11 @@
     "node-gyp": "^12.2.0",
     "prebuildify": "^6.0.1",
     "typescript": "^6.0.2"
-  }
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "prebuilds/",
+    "README.md"
+  ]
 }
